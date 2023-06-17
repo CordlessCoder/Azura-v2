@@ -1,23 +1,18 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include "debug/debug.h"
 #include "parser/chunk.h"
+#include "parser/vm.h"
+#include "flags.h"
 
-int main() {
-    Chunk chunk;
-    init_chunk(&chunk);
+int main(int argc, char* argv[]) {
+    flags(argc, argv);
+    init_vm();
 
-    int constant = add_constant(&chunk, 1.2);
-    write_chunk(&chunk, OP_CONSTANT, 123);
-    write_chunk(&chunk, constant, 123);
-
-    write_chunk(&chunk, OP_RETURN, 123);
-
-    disassemble_chunk(&chunk, "test chunk");
-
-    free_chunk(&chunk);
-
+    run_file(argv[1]);
+    
+    free_vm();
     return 0;
 }

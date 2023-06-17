@@ -1,14 +1,15 @@
-#ifndef azura_tokens_h__
-#define azura_tokens_h__
+#ifndef AZURA_TOKENS_H
+#define AZURA_TOKENS_H
 
 typedef enum {
     // Single-character Tokens!
-    LEFT_PAREN, RIGHT_PAREN, // ( )
-    LEFT_BRACE, RIGHT_BRACE, // { }
+    LEFT_PAREN, RIGHT_PAREN,     // ( )
+    LEFT_BRACE, RIGHT_BRACE,     // { }
     LEFT_BRACKET, RIGHT_BRACKET, // [ ]
-    COMMA, DOT, MINUS, PLUS, // , . - +
-    SEMICOLON, SLASH, STAR,  // ; / *
-    HASHTAG, COLON,          // # :
+    COMMA, DOT, MINUS, PLUS,     // , . - +
+    SEMICOLON, SLASH, STAR,      // ; / *
+    HASHTAG, COLON, MODULO,      // # : %
+    DOLLAR,                      // $
 
     // One or two character tokens!
     BANG, BANG_EQUAL,        // ! !=
@@ -18,7 +19,7 @@ typedef enum {
     WALRUS, INHERITANCE,     // := ->
 
     // Literals!
-    IDENTIFIER, STRING, NUMBER,
+    IDENTIFIER, STRING, NUMBER, STRING_INTERPOLATION,
 
     // Keywords!
     AND, CLASS, ELSE, FALSE, FUNC, FOR, IF, NIL, OR,
@@ -31,6 +32,7 @@ typedef enum {
 
 typedef struct {
     TokenKind kind;
+    std::string lexeme;
     const char* start;
     int length;
     int line;
@@ -41,4 +43,4 @@ void init_tokenizer(const char* source);
 const char* get_source_line_start(int line);
 Token scan_token();
 
-#endif
+#endif // AZURA_TOKENS_H
